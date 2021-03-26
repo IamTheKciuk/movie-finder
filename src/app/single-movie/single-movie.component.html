@@ -1,0 +1,50 @@
+<section class="single-movie-section section">
+  <div class="single-movie-center section-center">
+    <article class="movie" *ngIf="!isLoading">
+      <h1>{{ movie.title }}</h1>
+
+      <!-- poster -->
+      <div class="poster-container">
+        <img src="{{ movie.image }}" alt="{{ movie.title }}" />
+      </div>
+
+      <!-- movie info -->
+      <div class="movie-info">
+        <p class="info-row">
+          Genres:
+          <span *ngFor="let genre of movie.genres">
+            <span class="genre">{{ genre.name }}</span>
+          </span>
+        </p>
+        <p class="info-row">
+          Realease date: <span>{{ movie.release_date }}</span>
+        </p>
+        <p class="info-row">
+          Rating: <span>{{ movie.rating }}</span>
+        </p>
+        <p class="info-row">
+          Original language:
+          <span>{{ movie.original_language | uppercase }}</span>
+        </p>
+      </div>
+
+      <!-- overview -->
+      <p class="overview">
+        {{
+          movie.overview.length > 150
+            ? overviewShow
+              ? movie.overview
+              : movie.overview.substring(0, 150) + "..."
+            : movie.overview
+        }}
+        <span class="overview-show" (click)="toggleOverview()">{{
+          movie.overview.length > 150
+            ? overviewShow
+              ? "show less"
+              : "show more"
+            : ""
+        }}</span>
+      </p>
+    </article>
+  </div>
+</section>

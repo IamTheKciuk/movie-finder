@@ -1,0 +1,38 @@
+.navbar {
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  background: rgb(70, 66, 66);
+  color: white;
+  box-shadow: 2px 2px 20px rgb(0, 0, 0);
+}
+
+.nav-center {
+  width: 80%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.logo {
+  font-size: 2rem;
+}
+
+.logo span {
+  color: red;
+}
+
+.link-container ul {
+  display: flex;
+}
+
+.link-container li {
+  padding: 10px;
+}
+
+.link-container a {
+  font-size: 1.4rem;
+}

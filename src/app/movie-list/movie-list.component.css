@@ -1,0 +1,54 @@
+.movie-list-section {
+  width: 100%;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 400px;
+  gap: 2rem;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie-card:hover .show-details {
+  height: 40px;
+}
+
+.title {
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 200px;
+  cursor: pointer;
+}
+
+.poster {
+  width: 100%;
+  border-radius: 3px;
+}
+
+.show-details {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  background: #ffffffa0;
+  font-weight: 600;
+}
+
+.single-movie-link {
+  margin: 10px 0;
+}

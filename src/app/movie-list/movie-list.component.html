@@ -1,0 +1,14 @@
+<div class="movie-list-section">
+  <div class="list">
+    <div class="movie-card" *ngFor="let item of movies">
+      <h1 class="title">
+        {{ item.title }}
+      </h1>
+
+      <div class="image-wrapper" routerLink="/movies/{{ item.id }}">
+        <img src="{{ item.image }}" alt="{{ item.title }}" class="poster" />
+        <div class="show-details">SHOW DETAILS</div>
+      </div>
+    </div>
+  </div>
+</div>

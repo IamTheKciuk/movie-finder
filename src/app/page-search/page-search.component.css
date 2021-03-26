@@ -1,0 +1,43 @@
+.search-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.search-container::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  width: 75%;
+  background: black;
+  box-shadow: 1px 1px 10px red;
+  height: 2px;
+}
+
+.search-container h2 {
+  margin-bottom: 10px;
+}
+
+.search-container input {
+  width: 200px;
+  height: 30px;
+  font-size: 1.2rem;
+  padding: 5px;
+}
+
+.movie-list {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}

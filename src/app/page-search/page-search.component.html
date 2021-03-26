@@ -1,0 +1,29 @@
+<section class="search-section section">
+  <div class="search-center section-center">
+    <div class="search-content">
+      <!-- search -->
+      <div class="search-container">
+        <h2>Search by the title:</h2>
+        <input
+          type="text"
+          #searchBox
+          (input)="searchMoviesByName(searchBox.value)"
+        />
+      </div>
+      <p *ngIf="error.isError">Error: {{ error.msg }}</p>
+
+      <!-- display movie list if loaded -->
+      <app-movie-list
+        class="movie-list"
+        *ngIf="!isLoading"
+        [movies]="movieList"
+      ></app-movie-list>
+
+      <!-- display page buttons if loaded -->
+      <div class="page-btns" *ngIf="!isLoading">
+        <button (click)="previousPage()">previous</button>
+        <button (click)="nextPage()">next</button>
+      </div>
+    </div>
+  </div>
+</section>
