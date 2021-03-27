@@ -19,7 +19,12 @@ export class MovieListComponent implements OnInit {
 
     this.movies = this.movies.results.map((item) => {
       let { id, title, vote_average: rating, poster_path: image } = item;
-      image = `http://image.tmdb.org/t/p/w185${image}`;
+
+      if (image) {
+        image = `http://image.tmdb.org/t/p/w185${image}`;
+      } else {
+        image = 'assets/noimage.png';
+      }
 
       return { id, title, rating, image };
     });

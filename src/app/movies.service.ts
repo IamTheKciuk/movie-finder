@@ -21,6 +21,26 @@ export class MoviesService {
     return this.http.get(url);
   }
 
+  getMoviesFilters(info: {
+    genre: string;
+    year: string;
+    minRating: string;
+    minVotes: string;
+    sortBy: string;
+  }): Observable<any> {
+    const url = `${this.mainUrl}/discover/movie?api_key=${
+      this.apiKey
+    }&sort_by=${info.sortBy}&page=${this.page}${
+      info.genre && `&with_genres=${info.genre}`
+    }${info.year && `&primary_release_year=${info.year}`}${
+      info.minRating && `&vote_average.gte=${info.minRating}`
+    }${info.minVotes && `&vote_count.gte=${info.minVotes}`}`;
+
+    console.log(url);
+
+    return this.http.get(url);
+  }
+
   getMovie(id: number): Observable<any> {
     const url = `${this.mainUrl}/movie/${id}?api_key=${this.apiKey}`;
     return this.http.get(url);

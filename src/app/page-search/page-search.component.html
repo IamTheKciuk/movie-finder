@@ -1,16 +1,153 @@
 <section class="search-section section">
   <div class="search-center section-center">
     <div class="search-content">
-      <!-- search -->
-      <div class="search-container">
+      <!-- search chose -->
+      <div class="choose-search">
+        <div
+          class="name-search"
+          [ngClass]="{ active: chooseSearchName === true }"
+          (click)="chooseSearch('name')"
+        >
+          Search by name
+        </div>
+        <div
+          class="filter-search"
+          [ngClass]="{ active: chooseSearchName === false }"
+          (click)="chooseSearch('filters')"
+        >
+          Search by filters
+        </div>
+      </div>
+
+      <!-- search by name -->
+      <div
+        class="search-container"
+        [ngClass]="{ active: chooseSearchName === true }"
+      >
         <h2>Search by the title:</h2>
-        <input
-          type="text"
-          #searchBox
-          (input)="searchMoviesByName(searchBox.value)"
-        />
+        <input type="text" #searchName />
+        <button class="search-btn" (click)="handleSearchName(searchName.value)">
+          Search
+        </button>
+      </div>
+
+      <!-- search by filters -->
+      <div
+        class="search-container"
+        [ngClass]="{ active: chooseSearchName === false }"
+      >
+        <h2>Search by filters:</h2>
+
+        <!-- genre -->
+        <div class="genre-filter">
+          <label for="genre-select">Genre: </label>
+          <select
+            #genreSelect
+            name="genre-select"
+            id="genre-select"
+            [(ngModel)]="selectedGenre"
+          >
+            <option value="">Any</option>
+            <option value="28">Action</option>
+            <option value="12">Adventure</option>
+            <option value="16">Animation</option>
+            <option value="35">Comedy</option>
+            <option value="80">Crime</option>
+            <option value="99">Documentary</option>
+            <option value="18">Drama</option>
+            <option value="10751">Family</option>
+            <option value="14">Fantasy</option>
+            <option value="36">History</option>
+            <option value="27">Horror</option>
+            <option value="10402">Music</option>
+            <option value="9648">Mystery</option>
+            <option value="10749">Romance</option>
+            <option value="878">Science Fiction</option>
+            <option value="10770">TV Movie</option>
+            <option value="53">Thriller</option>
+            <option value="10752">War</option>
+            <option value="37">Western</option>
+          </select>
+        </div>
+
+        <!-- year -->
+        <div class="year-filter">
+          <label for="year-select">Year: </label>
+          <select
+            #yearSelect
+            name="year-select"
+            id="year-select"
+            [(ngModel)]="selectedYear"
+          >
+            <option value="">Any</option>
+            <option *ngFor="let year of years" value="{{ year }}">
+              {{ year }}
+            </option>
+          </select>
+        </div>
+
+        <!-- rating -->
+        <div class="rating-filter">
+          <label for="rating-select">Min. rating: </label>
+          <select
+            #ratingSelect
+            name="rating-select"
+            id="rating-select"
+            [(ngModel)]="selectedMinRating"
+          >
+            <option value="">Any</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+
+        <!-- vote counts -->
+        <div class="rating-count-filter">
+          <label for="rating-count">Min.votes </label>
+          <input
+            type="range"
+            id="votes"
+            name="votes"
+            min="0"
+            max="20000"
+            step="100"
+            [(ngModel)]="selectedMinVotes"
+          />
+          <p>
+            {{ selectedMinVotes }}
+          </p>
+        </div>
+        <button (click)="handleSearchFilter()">search</button>
       </div>
       <p *ngIf="error.isError">Error: {{ error.msg }}</p>
+
+      <div class="sort-container">
+        <label for="genre-select">Sort by: </label>
+        <select
+          #sortSelect
+          name="sort-select"
+          id="sort-select"
+          [(ngModel)]="sortBy"
+          (change)="handleSearchFilter()"
+        >
+          <option value="popularity.desc">Popularity Desc.</option>
+          <option value="popularity.asc">Popularity Asc.</option>
+          <option value="release_date.desc">Realease Date Desc.</option>
+          <option value="release_date.asc">Realease Date Asc.</option>
+          <option value="vote_average.desc">Vote Average Desc.</option>
+          <option value="vote_average.asc">Vote Average Asc.</option>
+          <option value="vote_count.desc">Vote Count Desc.</option>
+          <option value="vote_count.asc">Vote Count Asc.</option>
+        </select>
+      </div>
 
       <!-- display movie list if loaded -->
       <app-movie-list
@@ -20,7 +157,7 @@
       ></app-movie-list>
 
       <!-- display page buttons if loaded -->
-      <div class="page-btns" *ngIf="!isLoading">
+      <div class="page-btns" *ngIf="!isLoading && !error.isError">
         <button (click)="previousPage()">previous</button>
         <button (click)="nextPage()">next</button>
       </div>

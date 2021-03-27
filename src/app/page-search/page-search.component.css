@@ -6,13 +6,38 @@
   align-items: center;
 }
 
+.choose-search {
+  display: flex;
+  cursor: pointer;
+}
+
+.name-search,
+.filter-search {
+  height: 50px;
+  background: lightgray;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.name-search.active,
+.filter-search.active {
+  background: gray;
+}
+
 .search-container {
   position: relative;
   width: 100%;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
+  background: lightgray;
+}
+
+.search-container.active {
+  display: flex;
+  background: gray;
 }
 
 .search-container::after {

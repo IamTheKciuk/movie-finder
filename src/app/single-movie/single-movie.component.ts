@@ -44,7 +44,12 @@ export class SingleMovieComponent implements OnInit {
         original_language,
       } = movie;
 
-      const image = `http://image.tmdb.org/t/p/w185${movie.poster_path}`;
+      let image;
+      if (movie.poster_path) {
+        image = `http://image.tmdb.org/t/p/w185${movie.poster_path}`;
+      } else {
+        image = 'assets/noimage.png';
+      }
 
       this.movie = {
         id,
