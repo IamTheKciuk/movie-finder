@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MoviesService } from '../movies.service';
 
@@ -16,8 +16,13 @@ export class SingleMovieComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private moviesService: MoviesService,
-    private location: Location
-  ) {}
+    private location: Location,
+    public router: Router
+  ) {
+    router.events.subscribe((val) => {
+      this.getMovie();
+    });
+  }
 
   ngOnInit(): void {
     this.getMovie();
@@ -42,8 +47,13 @@ export class SingleMovieComponent implements OnInit {
         overview,
         genres,
         original_language,
+        tagline,
+        vote_count,
+        reviews,
+        similar,
       } = movie;
 
+      // set image to poster or to NOIMAGE if there is no poster from API
       let image;
       if (movie.poster_path) {
         image = `http://image.tmdb.org/t/p/w185${movie.poster_path}`;
@@ -51,6 +61,7 @@ export class SingleMovieComponent implements OnInit {
         image = 'assets/noimage.png';
       }
 
+      // set movie
       this.movie = {
         id,
         title,
@@ -60,6 +71,10 @@ export class SingleMovieComponent implements OnInit {
         genres,
         image,
         original_language,
+        tagline,
+        vote_count,
+        reviews,
+        similar,
       };
 
       // turn off loading
@@ -67,6 +82,7 @@ export class SingleMovieComponent implements OnInit {
     });
   }
 
+  // open/close description
   toggleOverview(): void {
     this.overviewShow = !this.overviewShow;
   }

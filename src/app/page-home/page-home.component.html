@@ -1,1 +1,56 @@
-<p>page-home works!</p>
+<section class="home-section section">
+  <div class="home-center section-center">
+    <div class="home-content" *ngIf="!isLoading$">
+      <div class="home-hero-text">
+        <h1>Welcome on Movie<span>DB</span></h1>
+        <h5>Best movie database</h5>
+      </div>
+      <!-- POPULAR -->
+      <h1 class="popular-title">Popular movies</h1>
+      <div class="popular">
+        <fa-icon
+          class="slider-btn"
+          [icon]="leftArrow"
+          (click)="previousPopular()"
+        ></fa-icon>
+        <div class="slider">
+          <article
+            class="single-popular"
+            *ngFor="let movie of popularMovies$.results; let i = index"
+            [ngClass]="{
+              active: i === activeIndex,
+              previous:
+                activeIndex - 1 === i || (activeIndex === 0 && i === 19),
+              next:
+                i != activeIndex &&
+                activeIndex - 1 != i &&
+                !(activeIndex === 0 && i === 19)
+            }"
+          >
+            <div class="img-wrapper">
+              <img
+                src="http://image.tmdb.org/t/p/w185/{{ movie.poster_path }}"
+                alt=""
+              />
+            </div>
+            <div class="description">
+              <h3 class="single-popular-title">{{ movie.title }}</h3>
+              <p>Realease: {{ movie.release_date }}</p>
+              <p class="overview">{{ movie.overview.substring(0, 200) }}...</p>
+              <button class="more-info-btn" routerLink="/movies/{{ movie.id }}">
+                Show more
+              </button>
+            </div>
+          </article>
+        </div>
+        <fa-icon
+          class="slider-btn"
+          [icon]="rightArrow"
+          (click)="nextPopular()"
+        ></fa-icon>
+      </div>
+
+      <!-- NEW -->
+    </div>
+  </div>
+</section>

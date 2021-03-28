@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MoviesService } from '../movies.service';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-movie-list',
@@ -8,7 +7,6 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./movie-list.component.css'],
 })
 export class MovieListComponent implements OnInit {
-  info_icon = faQuestionCircle;
   li: any;
   @Input() movies: any;
 

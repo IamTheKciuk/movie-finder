@@ -1,0 +1,128 @@
+.home-section {
+  color: white;
+  margin-top: 0;
+}
+
+.home-content {
+  width: 100vw;
+  min-height: calc(100vh - 100px);
+  background-image: url("../../assets/hero_home.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-hero-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-hero-text h1 {
+  font-size: 5rem;
+  text-shadow: 3px 3px 10px red;
+}
+
+.home-hero-text h1 span {
+  color: red;
+  text-shadow: 3px 3px 10px black;
+}
+
+.home-hero-text h5 {
+  font-size: 3rem;
+  text-shadow: 1px 1px 10px black;
+}
+
+.popular-title {
+  font-size: 2.3rem;
+  margin-top: 100px;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px black;
+}
+
+.popular {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 65%;
+  height: 275px;
+  margin-bottom: 20px;
+}
+
+.slider-btn {
+  /* height: 100%; */
+  font-size: 4rem;
+}
+
+.slider-btn:hover {
+  transform: scale(1.3);
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  margin: 0 20px;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff27;
+  border-radius: 5px;
+}
+
+.single-popular {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  display: flex;
+  justify-content: space-around;
+  transition: all 0.3s ease;
+  color: black;
+}
+
+.single-popular.active {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.single-popular.next {
+  transform: translateX(100%);
+}
+
+.single-popular.previous {
+  transform: translateX(-100%);
+}
+
+.img-wrapper {
+  height: 100%;
+}
+
+/* description */
+.description {
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  margin-left: 30px;
+}
+
+.single-popular-title {
+  color: white;
+  text-shadow: 1px 1px black;
+  font-size: 1.3rem;
+}
+
+.description p {
+  color: white;
+  text-shadow: 1px 1px black;
+  margin: 10px 0;
+}
+
+.overview {
+  color: white;
+  text-shadow: 1px 1px black;
+  margin-bottom: 20px;
+}

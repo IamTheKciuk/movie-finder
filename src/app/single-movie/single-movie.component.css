@@ -4,11 +4,15 @@
   gap: 1rem;
 }
 
-h1 {
+.title {
   grid-column-start: 1;
   grid-column-end: 3;
   text-align: center;
   margin-bottom: 1rem;
+}
+
+.title p {
+  font-size: 0.75rem;
 }
 
 .poster-container {
@@ -36,8 +40,13 @@ img {
   font-weight: 400;
 }
 
+.vote-count {
+  font-size: 0.7rem;
+  margin-left: 5px;
+}
+
 .genre {
-  background: cyan;
+  /* background: cyan; */
   border-radius: 0.3rem;
   margin: 0 3px;
   padding: 0 3px;
@@ -54,4 +63,71 @@ img {
   font-size: 0.9rem;
   color: aqua;
   cursor: pointer;
+}
+
+.similar-movies {
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 100px);
+  grid-auto-rows: 220px;
+  gap: 10px;
+}
+
+.similar-single {
+  cursor: pointer;
+}
+
+.similar-single:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.similar-title {
+  text-align: center;
+  font-size: 0.7rem;
+}
+
+.reviews {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.review {
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  margin: 20px;
+  position: relative;
+}
+
+.review::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background: lightgray;
+  width: 100%;
+  height: 1px;
+}
+
+.review-author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-author .author-name {
+  font-weight: 600;
+}
+
+.review-author-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.review-content {
+  font-size: 0.8rem;
 }

@@ -7,21 +7,19 @@ import { MoviesService } from '../movies.service';
   styleUrls: ['./page-search.component.css'],
 })
 export class PageSearchComponent implements OnInit {
-  isLoading: boolean = true;
-  error = { isError: false, msg: '' };
-  movieList = {};
-  chooseSearchName: boolean = false;
+  isLoading$: boolean = true;
+  error$ = { isError: false, msg: '' };
+  movieList$ = {};
 
-  // search term for searching by name
-  searchTerm: string = 'the lord of the rings';
+  filterSearch$: boolean = true; // true if searching by filters - used for active search tab choose
 
   // filters
-  filters: boolean = false; // check if searched by filters (toggle after first search by filters)
-  selectedGenre: string = '';
-  selectedYear: string = '';
-  selectedMinRating: string = '';
-  selectedMinVotes: number = 1000;
-  sortBy: string = 'popularity.desc';
+  filters$: boolean = false; // check if searched by filters - used for choosing right fetch method
+  selectedGenre$: string = '';
+  selectedYear$: string = '';
+  selectedMinRating$: string = '';
+  selectedMinVotes$: number = 1000;
+  sortBy$: string = 'popularity.desc';
 
   // years for filtering
   years = [
@@ -59,112 +57,117 @@ export class PageSearchComponent implements OnInit {
     2021,
   ];
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(private moviesService: MoviesService) {
+    this.moviesService.isLoading.subscribe((value) => {
+      this.isLoading$ = value;
+    });
+
+    this.moviesService.fitlerSearch.subscribe((value) => {
+      this.filterSearch$ = value;
+    });
+
+    this.moviesService.error.subscribe((value) => {
+      this.error$.isError = value['isError'];
+      this.error$.msg = value['msg'];
+    });
+
+    this.moviesService.movies.subscribe((value) => {
+      this.movieList$ = value;
+    });
+
+    this.moviesService.filters.subscribe((value) => {
+      this.filters$ = value;
+    });
+
+    this.moviesService.selectedGenre.subscribe((value) => {
+      this.selectedGenre$ = value;
+    });
+
+    this.moviesService.selectedYear.subscribe((value) => {
+      this.selectedYear$ = value;
+    });
+
+    this.moviesService.selectedMinRating.subscribe((value) => {
+      this.selectedMinRating$ = value;
+    });
+
+    this.moviesService.selectedMinVotes.subscribe((value) => {
+      this.selectedMinVotes$ = value;
+    });
+
+    this.moviesService.sortBy.subscribe((value) => {
+      this.sortBy$ = value;
+    });
+  }
 
   ngOnInit(): void {
-    this.handleSearchFilter();
+    if (this.filters$) {
+      this.moviesService.searchMoviesFilters();
+    } else {
+      this.moviesService.searchMoviesByName();
+    }
   }
 
   //handle name search button
   handleSearchName(search: string): void {
-    this.filters = false; // if searching by name turn off filters
-    this.selectedGenre = '';
-    this.selectedYear = '';
-    this.selectedMinRating = '';
-    this.searchTerm = search;
-    this.moviesService.resetPage();
-    this.searchMoviesByName();
+    this.spreadSearchTerm(search);
+    this.moviesService.handleSearchName();
   }
 
   // handle filter search button
   handleSearchFilter(): void {
-    this.filters = true; // turn on filters if searching by filters
-    this.searchTerm = '';
-    this.moviesService.resetPage();
-    this.searchMoviesFilters();
+    this.spreadFilters();
+    this.moviesService.handleSearchFilter();
+  }
 
-    console.log(this.selectedYear);
+  // updating searchTerm in service
+  spreadSearchTerm(searchTerm: string): void {
+    this.moviesService.updateSearchTerm(searchTerm);
+  }
+
+  // updating filters in service whil button clicked
+  spreadFilters(): void {
+    this.moviesService.updateFilters(
+      this.selectedGenre$,
+      this.selectedYear$,
+      this.selectedMinRating$,
+      this.selectedMinVotes$,
+      this.sortBy$
+    );
   }
 
   // handle choosing search
   chooseSearch(value: string): void {
     if (value === 'name') {
-      this.chooseSearchName = true;
+      this.moviesService.setFilterSearch(false);
     }
 
     if (value === 'filters') {
-      this.chooseSearchName = false;
+      this.moviesService.setFilterSearch(true);
     }
-  }
-
-  searchMoviesByName(): void {
-    if (this.searchTerm) {
-      this.isLoading = true;
-      this.error = { isError: false, msg: '' };
-
-      this.moviesService
-        .getMoviesByName(this.searchTerm)
-        .subscribe((response) => {
-          this.movieList = response;
-
-          this.moviesService.setMaxPage(response.total_pages);
-
-          if (response.total_results < 1)
-            this.error = {
-              isError: true,
-              msg: 'There is no match for your search',
-            };
-
-          this.isLoading = false;
-        });
-    } else {
-      this.error = { isError: true, msg: 'No term given' };
-    }
-  }
-
-  searchMoviesFilters(): void {
-    this.isLoading = true;
-    this.error = { isError: false, msg: '' };
-    this.moviesService
-      .getMoviesFilters({
-        genre: this.selectedGenre,
-        year: this.selectedYear,
-        minRating: this.selectedMinRating,
-        minVotes: this.selectedMinVotes.toString(),
-        sortBy: this.sortBy,
-      })
-      .subscribe((response) => {
-        this.movieList = response;
-
-        this.moviesService.setMaxPage(response.total_pages);
-
-        if (response.total_results < 1)
-          this.error = {
-            isError: true,
-            msg: 'There is no match for your filters',
-          };
-
-        this.isLoading = false;
-      });
   }
 
   nextPage(): void {
     this.moviesService.nextPage();
-    console.log(this.filters);
 
-    if (this.filters) {
-      this.searchMoviesFilters();
+    // if filters are true search for next page with filters
+    if (this.filters$) {
+      this.moviesService.searchMoviesFilters();
     } else {
-      this.searchMoviesByName();
+      // if filters are false search for next page with name
+      this.moviesService.searchMoviesByName();
     }
   }
 
   previousPage(): void {
     this.moviesService.previousPage();
-    if (this.filters) {
-      this.searchMoviesFilters();
+
+    // if filters are true search for previous page with filters
+    if (this.filters$) {
+      this.moviesService.searchMoviesFilters();
     } else {
-      this.searchMoviesByName();
+      // if filters are false search for previous page with name
+      this.moviesService.searchMoviesByName();
     }
   }
 }

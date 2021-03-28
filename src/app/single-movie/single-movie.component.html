@@ -1,7 +1,10 @@
 <section class="single-movie-section section">
   <div class="single-movie-center section-center">
     <article class="movie" *ngIf="!isLoading">
-      <h1>{{ movie.title }}</h1>
+      <div class="title">
+        <h1>{{ movie.title }}</h1>
+        <p class="tagline" *ngIf="movie.tagline">"{{ movie.tagline }}"</p>
+      </div>
 
       <!-- poster -->
       <div class="poster-container">
@@ -10,25 +13,31 @@
 
       <!-- movie info -->
       <div class="movie-info">
+        <!-- genre -->
         <p class="info-row">
           Genres:
           <span *ngFor="let genre of movie.genres">
             <span class="genre">{{ genre.name }}</span>
           </span>
         </p>
+        <!-- rating -->
+        <p class="info-row">
+          Rating: <span>{{ movie.rating }}</span>
+          <span class="vote-count">({{ movie.vote_count }} votes)</span>
+        </p>
+        <!-- release date -->
         <p class="info-row">
           Realease date: <span>{{ movie.release_date }}</span>
         </p>
-        <p class="info-row">
-          Rating: <span>{{ movie.rating }}</span>
-        </p>
+        <!-- original language -->
         <p class="info-row">
           Original language:
           <span>{{ movie.original_language | uppercase }}</span>
         </p>
       </div>
 
-      <!-- overview -->
+      <!-- description -->
+      <h2>Description:</h2>
       <p class="overview">
         {{
           movie.overview.length > 150
@@ -45,6 +54,44 @@
             : ""
         }}</span>
       </p>
+
+      <!-- similar movies -->
+      <h2>Similar movies:</h2>
+      <div class="similar-movies">
+        <article
+          class="similar-single"
+          *ngFor="let similar of movie.similar.results"
+        >
+          <div
+            class="similar-poster-container"
+            routerLink="/movies/{{ similar.id }}"
+          >
+            <img
+              src="http://image.tmdb.org/t/p/w185/{{ similar.poster_path }}"
+              alt="{{ similar.title }}"
+            />
+            <p class="similar-title">{{ similar.title }}</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- reviews -->
+      <div class="reviews" *ngIf="movie.reviews.results.length > 0">
+        <h3>Reviews:</h3>
+        <article class="review" *ngFor="let review of movie.reviews.results">
+          <div class="review-author">
+            <img
+              src="https://www.themoviedb.org/t/p/w150_and_h150_face/{{
+                review.author_details.avatar_path
+              }}"
+              alt="{{ review.author }}"
+              class="review-author-img"
+            />
+            <p class="author-name">{{ review.author }}</p>
+          </div>
+          <p class="review-content">{{ review.content }}</p>
+        </article>
+      </div>
     </article>
   </div>
 </section>
