@@ -1,3 +1,31 @@
+.search-name-input {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.815);
+  font-weight: 500;
+  height: 50px;
+}
+
+select {
+  padding: 0.3rem;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.815);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+select:hover {
+  color: white;
+  background: red;
+}
+
+select:focus {
+  color: white;
+  background: red;
+}
+
 .search-content {
   width: 100%;
   display: flex;
@@ -14,15 +42,25 @@
 .name-search,
 .filter-search {
   height: 50px;
-  background: lightgray;
+  background: darkgray;
+  color: white;
   display: flex;
   align-items: center;
   padding: 10px;
 }
 
+.name-search {
+  border-top-left-radius: 5px;
+}
+
+.filter-search {
+  border-top-right-radius: 5px;
+}
+
 .name-search.active,
 .filter-search.active {
-  background: gray;
+  background: rgba(0, 0, 0, 0.911);
+  box-shadow: 0 0 10px black;
 }
 
 .search-container {
@@ -32,12 +70,16 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
-  background: lightgray;
+  color: white;
+
+  border-radius: 5px;
+
+  box-shadow: 0 0 10px black;
 }
 
 .search-container.active {
   display: flex;
-  background: gray;
+  background: rgba(0, 0, 0, 0.911);
 }
 
 .search-container::after {
@@ -53,16 +95,50 @@
 .search-container h2 {
   margin-bottom: 10px;
 }
-
+/* 
 .search-container input {
   width: 200px;
   height: 30px;
   font-size: 1.2rem;
   padding: 5px;
+} */
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+  height: 45px;
+}
+
+.rating-count-filter div input {
+  width: 150px;
+}
+.rating-count-filter div p {
+  margin-top: -15px;
+  text-align: end;
 }
 
 .movie-list {
   width: 100%;
   margin-top: 20px;
   margin-bottom: 50px;
+}
+
+.np-btn {
+  padding: 5px;
+  font-weight: 500;
+  border: none;
+  background: red;
+  border-radius: 10px;
+  margin: 0 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.np-btn:hover {
+  color: white;
+  background: black;
 }

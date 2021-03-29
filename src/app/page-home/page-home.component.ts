@@ -17,7 +17,7 @@ export class PageHomeComponent implements OnInit {
   // slider
   leftArrow = faAngleDoubleLeft;
   rightArrow = faAngleDoubleRight;
-  activeIndex: number = 0;
+  activeIndex: number = 0; // active slide
 
   constructor(private moviesService: MoviesService) {
     this.moviesService.isLoading.subscribe((value) => {
@@ -25,19 +25,20 @@ export class PageHomeComponent implements OnInit {
     });
 
     this.moviesService.popularMovies.subscribe((value) => {
-      console.log(value);
       this.popularMovies$ = value;
     });
   }
 
   ngOnInit(): void {
-    this.moviesService.getPopularMovies();
+    this.moviesService.getPopularMovies(); // get popular movies on init
 
+    // slider auto scroll
     setInterval(() => {
       this.nextPopular();
     }, 10000);
   }
 
+  // handle next slide
   nextPopular(): void {
     let tempIndex: number = this.activeIndex + 1;
     if (
@@ -49,6 +50,7 @@ export class PageHomeComponent implements OnInit {
     this.activeIndex = tempIndex;
   }
 
+  // handle previous slide
   previousPopular(): void {
     let tempIndex: number = this.activeIndex - 1;
     if (this.popularMovies$['results'] && tempIndex < 0) {

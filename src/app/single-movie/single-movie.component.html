@@ -66,8 +66,17 @@
             class="similar-poster-container"
             routerLink="/movies/{{ similar.id }}"
           >
+            <!-- if poster path exists -->
             <img
+              *ngIf="similar.poster_path"
               src="http://image.tmdb.org/t/p/w185/{{ similar.poster_path }}"
+              alt="{{ similar.title }}"
+            />
+
+            <!-- use default img while there is no poster_path -->
+            <img
+              *ngIf="!similar.poster_path"
+              src="../../assets/noimage.png"
               alt="{{ similar.title }}"
             />
             <p class="similar-title">{{ similar.title }}</p>
@@ -80,10 +89,32 @@
         <h3>Reviews:</h3>
         <article class="review" *ngFor="let review of movie.reviews.results">
           <div class="review-author">
+            <!-- weird ngIfs bcoz API return different avatar links -->
             <img
+              *ngIf="
+                review.author_details.avatar_path &&
+                review.author_details.avatar_path.indexOf('avatar') === -1
+              "
               src="https://www.themoviedb.org/t/p/w150_and_h150_face/{{
                 review.author_details.avatar_path
               }}"
+              alt="{{ review.author }}"
+              class="review-author-img"
+            />
+
+            <img
+              *ngIf="
+                review.author_details.avatar_path &&
+                review.author_details.avatar_path.indexOf('avatar') != -1
+              "
+              src="{{ review.author_details.avatar_path.substring(1) }}"
+              alt="{{ review.author }}"
+              class="review-author-img"
+            />
+
+            <img
+              *ngIf="!review.author_details.avatar_path"
+              src="../../assets/no_avatar.png"
               alt="{{ review.author }}"
               class="review-author-img"
             />

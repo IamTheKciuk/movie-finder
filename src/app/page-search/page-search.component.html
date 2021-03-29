@@ -27,6 +27,7 @@
         <h2>Search by the title:</h2>
         <input
           type="text"
+          class="search-name-input"
           #searchName
           (keyup.enter)="handleSearchName(searchName.value)"
         />
@@ -43,7 +44,7 @@
         <h2>Search by filters:</h2>
 
         <!-- genre -->
-        <div class="genre-filter">
+        <div class="genre-filter filter">
           <label for="genre-select">Genre: </label>
           <select
             #genreSelect
@@ -75,7 +76,7 @@
         </div>
 
         <!-- year -->
-        <div class="year-filter">
+        <div class="year-filter filter">
           <label for="year-select">Year: </label>
           <select
             #yearSelect
@@ -91,7 +92,7 @@
         </div>
 
         <!-- rating -->
-        <div class="rating-filter">
+        <div class="rating-filter filter">
           <label for="rating-select">Min. rating: </label>
           <select
             #ratingSelect
@@ -114,24 +115,27 @@
         </div>
 
         <!-- vote counts -->
-        <div class="rating-count-filter">
-          <label for="rating-count">Min.votes </label>
-          <input
-            type="range"
-            id="votes"
-            name="votes"
-            min="0"
-            max="20000"
-            step="100"
-            [(ngModel)]="selectedMinVotes$"
-          />
-          <p>
-            {{ selectedMinVotes$ }}
-          </p>
+        <div class="rating-count-filter filter">
+          <label for="rating-count">Min. votes </label>
+          <div>
+            <input
+              class="votes-range"
+              type="range"
+              id="votes"
+              name="votes"
+              min="0"
+              max="20000"
+              step="100"
+              [(ngModel)]="selectedMinVotes$"
+            />
+            <p>
+              {{ selectedMinVotes$ }}
+            </p>
+          </div>
         </div>
 
         <!-- sort by -->
-        <div class="sort-container">
+        <div class="sort-container filter">
           <label for="genre-select">Sort by: </label>
           <select
             #sortSelect
@@ -151,9 +155,17 @@
         </div>
 
         <!-- HANDLE SEARCH FILTERS -->
-        <button (click)="handleSearchFilter()">search</button>
+        <button class="search-btn" (click)="handleSearchFilter()">
+          search
+        </button>
       </div>
       <p *ngIf="error$.isError">Error: {{ error$.msg }}</p>
+
+      <!-- display page buttons if loaded -->
+      <div class="page-btns" *ngIf="!isLoading$ && !error$.isError">
+        <button class="np-btn" (click)="previousPage()">prev</button>
+        <button class="np-btn" (click)="nextPage()">next</button>
+      </div>
 
       <!-- display movie list if loaded -->
       <app-movie-list
@@ -164,8 +176,8 @@
 
       <!-- display page buttons if loaded -->
       <div class="page-btns" *ngIf="!isLoading$ && !error$.isError">
-        <button (click)="previousPage()">previous</button>
-        <button (click)="nextPage()">next</button>
+        <button class="np-btn" (click)="previousPage()">prev</button>
+        <button class="np-btn" (click)="nextPage()">next</button>
       </div>
     </div>
   </div>

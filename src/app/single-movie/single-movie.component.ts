@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { MoviesService } from '../movies.service';
 
 @Component({
@@ -16,16 +15,16 @@ export class SingleMovieComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private moviesService: MoviesService,
-    private location: Location,
     public router: Router
   ) {
+    // fetch new movie while url changes
     router.events.subscribe((val) => {
       this.getMovie();
     });
   }
 
   ngOnInit(): void {
-    this.getMovie();
+    this.getMovie(); // fetch movie on init
   }
 
   // getting single movie from api
@@ -35,9 +34,8 @@ export class SingleMovieComponent implements OnInit {
 
     const id = +this.route.snapshot.paramMap.get('id'); // getting id from url params
 
+    // fetching and handling response
     this.moviesService.getMovie(id).subscribe((movie) => {
-      console.log(movie);
-
       // destructure movie
       const {
         id,
@@ -54,7 +52,7 @@ export class SingleMovieComponent implements OnInit {
       } = movie;
 
       // set image to poster or to NOIMAGE if there is no poster from API
-      let image;
+      let image: string;
       if (movie.poster_path) {
         image = `http://image.tmdb.org/t/p/w185${movie.poster_path}`;
       } else {

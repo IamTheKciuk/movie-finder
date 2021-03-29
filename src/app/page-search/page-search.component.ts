@@ -58,6 +58,7 @@ export class PageSearchComponent implements OnInit {
   ];
 
   constructor(private moviesService: MoviesService) {
+    //  ------- SUBSCRIBING TO SERVICE ---------------
     this.moviesService.isLoading.subscribe((value) => {
       this.isLoading$ = value;
     });

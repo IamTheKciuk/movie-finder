@@ -13,11 +13,11 @@ export class MovieListComponent implements OnInit {
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit(): void {
-    console.log(this.movies);
-
     this.movies = this.movies.results.map((item) => {
+      // destructure movies
       let { id, title, vote_average: rating, poster_path: image } = item;
 
+      // set default image while none is given
       if (image) {
         image = `http://image.tmdb.org/t/p/w185${image}`;
       } else {

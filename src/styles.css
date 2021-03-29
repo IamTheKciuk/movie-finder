@@ -8,7 +8,7 @@
 }
 
 body {
-  width: 100vw;
+  width: 99vw;
 }
 
 ul {
@@ -36,4 +36,39 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.search-btn {
+  padding: 10px;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  color: white;
+  background: red;
+}
+
+.btn {
+  padding: 5px;
+  font-weight: 500;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  color: black;
+  background: red;
 }

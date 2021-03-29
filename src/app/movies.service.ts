@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class MoviesService {
   private _movies = new BehaviorSubject<object>({});
   movies = this._movies.asObservable();
 
+  // popular movie list
   private _popularMovies = new BehaviorSubject<object>({});
   popularMovies = this._popularMovies.asObservable();
 
@@ -108,7 +109,8 @@ export class MoviesService {
 
         this.setMaxPage(response.total_pages);
 
-        if (!response) {
+        console.log(response);
+        if (response.total_results < 1) {
           this._error.next({
             isError: true,
             msg: 'There is no match for your search',
