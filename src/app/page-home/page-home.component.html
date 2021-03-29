@@ -2,7 +2,7 @@
   <div class="home-center section-center">
     <div class="home-content" *ngIf="!isLoading$">
       <div class="home-hero-text">
-        <h1>Welcome on Movie<span>DB</span></h1>
+        <h1>Welcome to Movie<span>DB</span></h1>
         <h5>Best movie database</h5>
       </div>
 
@@ -40,7 +40,7 @@
             <!-- popular desc -->
             <div class="description">
               <h3 class="single-popular-title">{{ movie.title }}</h3>
-              <p>Realease: {{ movie.release_date }}</p>
+              <p>Release: {{ movie.release_date }}</p>
               <p class="overview">{{ movie.overview.substring(0, 200) }}...</p>
               <button
                 class="more-info-btn btn"
