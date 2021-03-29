@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 })
 export class MoviesService {
   private mainUrl = 'https://api.themoviedb.org/3';
-  private apiKey = '2a288d655ac64d728a324d13ebbd8ba0';
+  private apiKey = '';
   private page: number = 1;
   private totalPages: number;
 
